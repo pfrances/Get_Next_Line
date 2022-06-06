@@ -6,7 +6,7 @@
 /*   By: pfrances <pfrances@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:21:04 by pfrances          #+#    #+#             */
-/*   Updated: 2022/06/02 11:27:27 by pfrances         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:33:35 by pfrances         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
 
 typedef enum e_bool
 {

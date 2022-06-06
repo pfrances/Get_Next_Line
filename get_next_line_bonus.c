@@ -6,7 +6,7 @@
 /*   By: pfrances <pfrances@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:26:15 by pfrances          #+#    #+#             */
-/*   Updated: 2022/06/06 14:41:56 by pfrances         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:28:19 by pfrances         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,26 +83,13 @@ char	*get_line_and_save(char **result, char **save, char **buff, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*save[_SC_OPEN_MAX] = {NULL};
+	static char	*save[10240] = {NULL};
 	char		*buff;
 	char		*result;
 
-	if (fd < 0 || fd > _SC_OPEN_MAX || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= 10240 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (initialisation(&result, &save[fd], &buff) == ERROR)
 		return (NULL);
 	return (get_line_and_save(&result, &save[fd], &buff, fd));
 }
-
-// char	*get_next_line(int fd)
-// {
-// 	static char	*save = NULL;
-// 	char		*buff;
-// 	char		*result;
-
-// 	if (fd < 0 || fd > _SC_OPEN_MAX || BUFFER_SIZE <= 0)
-// 		return (NULL);
-// 	if (initialisation(&result, &save, &buff) == ERROR)
-// 		return (NULL);
-// 	return (get_line_and_save(&result, &save, &buff, fd));
-// }
