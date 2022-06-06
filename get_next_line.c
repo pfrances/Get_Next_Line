@@ -6,7 +6,7 @@
 /*   By: pfrances <pfrances@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:26:15 by pfrances          #+#    #+#             */
-/*   Updated: 2022/06/06 16:45:29 by pfrances         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:53:30 by pfrances         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,3 +93,30 @@ char	*get_next_line(int fd)
 		return (NULL);
 	return (get_line_and_save(&result, &save, &buff, fd));
 }
+
+// #include <stdio.h>
+// #include <fcntl.h>
+
+// #define FILE_NAME "file.txt"
+
+// int	main(void)
+// {
+// 	char	*buff;
+// 	int		fd;
+// 	int		i = 0;
+
+// 	printf("----------- Mandatory ----------------\n");
+// 	fd = open(FILE_NAME, O_RDONLY);
+// 	while (1) {
+// 		buff = get_next_line(fd);
+// 		printf("i : %d str : %s", i, buff);
+// 		if (!buff)
+// 			break ;
+// 		free(buff);
+// 		i++;
+// 	}
+// 	printf("\n");
+// 	close(fd);
+
+// 	return (0);
+// }
