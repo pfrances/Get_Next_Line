@@ -6,7 +6,7 @@
 /*   By: pfrances <pfrances@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:26:15 by pfrances          #+#    #+#             */
-/*   Updated: 2022/06/06 16:40:12 by pfrances         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:41:37 by pfrances         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*get_line_and_save(char **result, char **save, char **buff, int fd)
 	{
 		ft_bzero(*buff, ((size_t)BUFFER_SIZE + 1));
 		nb_read = read(fd, *buff, BUFFER_SIZE);
-		if (nb_read <= 0 && (**result == '\0'|| (*result)[i]) == '\0')
+		if (nb_read <= 0 && (**result == '\0' || (*result)[i]) == '\0')
 			return (free_and_return(*result, save, *buff, **result != '\0'));
 		*result = ft_strjoin(*result, *buff);
 		if (!*result)
