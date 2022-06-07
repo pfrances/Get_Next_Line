@@ -6,13 +6,13 @@
 /*   By: pfrances <pfrances@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:26:15 by pfrances          #+#    #+#             */
-/*   Updated: 2022/06/06 16:54:12 by pfrances         ###   ########.fr       */
+/*   Updated: 2022/06/07 10:59:23 by pfrances         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*free_and_return(char *result, char **save, char *buff, int flag)
+static char	*free_and_return(char *result, char **save, char *buff, int flag)
 {
 	free(buff);
 	if (flag == SUCCESS)
@@ -23,7 +23,7 @@ char	*free_and_return(char *result, char **save, char *buff, int flag)
 	return (NULL);
 }
 
-int	initialisation(char **result, char **save, char **buff)
+static int	initialisation(char **result, char **save, char **buff)
 {
 	if (*save)
 	{
@@ -42,7 +42,7 @@ int	initialisation(char **result, char **save, char **buff)
 	return (SUCCESS);
 }
 
-int	search_line_break(char **result, char **save, size_t *i)
+static int	search_line_break(char **result, char **save, size_t *i)
 {
 	while ((*result)[*i] != '\0')
 	{
@@ -59,7 +59,7 @@ int	search_line_break(char **result, char **save, size_t *i)
 	return (CONTINUE);
 }
 
-char	*get_line_and_save(char **result, char **save, char **buff, int fd)
+static char	*get_line_and_save(char **result, char **save, char **buff, int fd)
 {
 	int		line_break_flag;
 	size_t	i;
@@ -95,58 +95,71 @@ char	*get_next_line(int fd)
 }
 
 /////////////////////////////////////////////////////////////////
-// /*		MAIN		*/
-// #include <stdio.h>
-// #include <fcntl.h>
+/*		MAIN		*/
 
-// #define FILE_NAME1 "file1.txt"
-// #define FILE_NAME2 "file2.txt"
-// #define FILE_NAME3 "file3.txt"
-// #define FILE_NAME4 "file4.txt"
+/*
+#include <stdio.h>
+#include <fcntl.h>
 
-// int	main(void)
-// {
-// 	char	*buff;
-// 	int		fd;
-// 	int		i = 0;
+#define FILE_NAME1 "file1.txt"
+#define FILE_NAME2 "file2.txt"
+#define FILE_NAME3 "file3.txt"
+#define FILE_NAME4 "file4.txt"
+#define NB_OF_FILES 4
 
-// 	printf("----------- Mandatory ----------------\n");
-// 	fd = open(FILE_NAME1, O_RDONLY);
-// 	while (1) {
-// 		buff = get_next_line(fd);
-// 		printf("i : %d str : %s", i, buff);
-// 		if (!buff)
-// 			break ;
-// 		free(buff);
-// 		i++;
-// 	}
-// 	printf("\n");
-// 	close(fd);
+int	main(void)
+{
+	char	*buff;
+	int		fd;
+	int		i = 0;
 
-// 	printf("\n----------- Bonus ----------------\n");
-// 	int	fd_set[4];
-// 	int	j;
+	printf("----------- Mandatory ----------------\n");
+	fd = open(FILE_NAME1, O_RDONLY);
+	while (1) {
+		buff = get_next_line(fd);
+		printf("i : %d str : %s", i, buff);
+		if (!buff)
+			break ;
+		free(buff);
+		i++;
+	}
+	printf("\n");
+	close(fd);
 
-// 	fd_set[0] = open(FILE_NAME1, O_RDONLY);
-// 	fd_set[1] = open(FILE_NAME2, O_RDONLY);
-// 	fd_set[2] = open(FILE_NAME3, O_RDONLY);
-// 	fd_set[3] = open(FILE_NAME4, O_RDONLY);
+	printf("\n----------- Bonus ----------------\n");
+	int		fd_set[NB_OF_FILES];
+	char	*buff_set[NB_OF_FILES];
+	int		j;
+	int		flag = 0;
 
-// 	i = 0;
-// 	j = 0;
-// 	while (j < 50)
-// 	{
-// 		if (i == 4)
-// 			i = 0;
-// 		buff = get_next_line(fd_set[i]);
-// 		printf("i : %d str : %s", i, buff);
-// 		free(buff);
-// 		i++;
-// 		j++;
-// 	}
-// 	close(fd_set[0]);
-// 	close(fd_set[1]);
-// 	close(fd_set[2]);
-// 	close(fd_set[3]);
-// 	return (0);
-// }
+	fd_set[0] = open(FILE_NAME1, O_RDONLY);
+	fd_set[1] = open(FILE_NAME2, O_RDONLY);
+	fd_set[2] = open(FILE_NAME3, O_RDONLY);
+	fd_set[3] = open(FILE_NAME4, O_RDONLY);
+
+	j = 0;
+	while (flag != NB_OF_FILES)
+	{
+		i = 0;
+		flag = 0;
+		while (i < NB_OF_FILES)
+		{
+			buff_set[i] = get_next_line(fd_set[i]);
+			printf("line[%d] | file%d.txt : %s",j, i+1, buff_set[i]);
+			if (buff_set[i] == NULL || buff_set[i][ft_strlen(buff_set[i]) - 1] != '\n')
+			{
+				printf("\n");
+				flag++;
+			}
+			free(buff_set[i]);
+			i++;
+		}
+		j++;
+	}
+	close(fd_set[0]);
+	close(fd_set[1]);
+	close(fd_set[2]);
+	close(fd_set[3]);
+	return (0);
+}
+*/

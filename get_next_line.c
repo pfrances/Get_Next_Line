@@ -6,13 +6,13 @@
 /*   By: pfrances <pfrances@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:26:15 by pfrances          #+#    #+#             */
-/*   Updated: 2022/06/06 16:53:30 by pfrances         ###   ########.fr       */
+/*   Updated: 2022/06/07 10:59:52 by pfrances         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*free_and_return(char *result, char **save, char *buff, int flag)
+static char	*free_and_return(char *result, char **save, char *buff, int flag)
 {
 	free(buff);
 	if (flag == SUCCESS)
@@ -23,7 +23,7 @@ char	*free_and_return(char *result, char **save, char *buff, int flag)
 	return (NULL);
 }
 
-int	initialisation(char **result, char **save, char **buff)
+static int	initialisation(char **result, char **save, char **buff)
 {
 	if (*save)
 	{
@@ -42,7 +42,7 @@ int	initialisation(char **result, char **save, char **buff)
 	return (SUCCESS);
 }
 
-int	search_line_break(char **result, char **save, size_t *i)
+static int	search_line_break(char **result, char **save, size_t *i)
 {
 	while ((*result)[*i] != '\0')
 	{
@@ -59,7 +59,7 @@ int	search_line_break(char **result, char **save, size_t *i)
 	return (CONTINUE);
 }
 
-char	*get_line_and_save(char **result, char **save, char **buff, int fd)
+static char	*get_line_and_save(char **result, char **save, char **buff, int fd)
 {
 	int		line_break_flag;
 	size_t	i;
@@ -87,36 +87,41 @@ char	*get_next_line(int fd)
 	char		*buff;
 	char		*result;
 
-	if (fd < 0 || fd > _SC_OPEN_MAX || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= 10204 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (initialisation(&result, &save, &buff) == ERROR)
 		return (NULL);
 	return (get_line_and_save(&result, &save, &buff, fd));
 }
 
-// #include <stdio.h>
-// #include <fcntl.h>
+/////////////////////////////////////////////////////////////////
+/*		MAIN		*/
 
-// #define FILE_NAME "file.txt"
+/*
+#include <stdio.h>
+#include <fcntl.h>
 
-// int	main(void)
-// {
-// 	char	*buff;
-// 	int		fd;
-// 	int		i = 0;
+#define FILE_NAME "file.txt"
 
-// 	printf("----------- Mandatory ----------------\n");
-// 	fd = open(FILE_NAME, O_RDONLY);
-// 	while (1) {
-// 		buff = get_next_line(fd);
-// 		printf("i : %d str : %s", i, buff);
-// 		if (!buff)
-// 			break ;
-// 		free(buff);
-// 		i++;
-// 	}
-// 	printf("\n");
-// 	close(fd);
+int	main(void)
+{
+	char	*buff;
+	int		fd;
+	int		i = 0;
 
-// 	return (0);
-// }
+	printf("----------- Mandatory ----------------\n");
+	fd = open(FILE_NAME, O_RDONLY);
+	while (1) {
+		buff = get_next_line(fd);
+		printf("i : %d str : %s", i, buff);
+		if (!buff)
+			break ;
+		free(buff);
+		i++;
+	}
+	printf("\n");
+	close(fd);
+
+	return (0);
+}
+*/
